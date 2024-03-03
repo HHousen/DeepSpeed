@@ -2615,7 +2615,10 @@ class DeepSpeedEngine(Module):
                 if hasattr(param, 'ds_id'):
                     param.ds_tensor.data.copy_(saved_frozen_params[name].data)
                 else:
-                    param.data.copy_(saved_frozen_params[name].data)
+                    try:
+                        param.data.copy_(saved_frozen_params[name].data)
+                    except:
+                        print(f"Failed to copy {name}")
 
     def _get_zero_ckpt_prefix(self, dp_rank, bf16_mode):
         return f'{"bf16_" if bf16_mode else ""}zero_pp_rank_{dp_rank}'
