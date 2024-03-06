@@ -2587,6 +2587,7 @@ class DeepSpeedEngine(Module):
                     moe_layer_id += 1
 
     def load_module_state_dict(self, checkpoint, strict=True, custom_load_fn=None, fetch_z3_params=False):
+        strict = False
         if fetch_z3_params:
             params_to_fetch = [
                 p for p in self.module.parameters()
