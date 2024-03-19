@@ -2601,8 +2601,6 @@ class DeepSpeedEngine(Module):
             if custom_load_fn:
                 custom_load_fn(src=module_state_dict, dst=self.module)
             else:
-                if "model.net.inner_model.plugins.1.embedder.embedding.weight" in module_state_dict:
-                    del module_state_dict["model.net.inner_model.plugins.1.embedder.embedding.weight"]
                 self.module.load_state_dict(
                     module_state_dict,  # TODO
                     strict=strict)
