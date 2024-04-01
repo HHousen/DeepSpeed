@@ -142,9 +142,10 @@ class TorchBackend(Backend):
         return self.reduce_scatter_function is not None
 
     def init_process_group(self, backend, timeout, init_method, rank, world_size):
+        from datetime import timedelta
         if not torch.distributed.is_initialized():
             torch.distributed.init_process_group(backend,
-                                                 timeout=timeout,
+                                                 timeout=timedelta(seconds=30*60),
                                                  init_method=init_method,
                                                  rank=rank,
                                                  world_size=world_size)
